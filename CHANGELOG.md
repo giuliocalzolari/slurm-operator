@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Fixed Slurm chart incorrect `imagePullPolicy` being used.
+
 ### Changed
 
 - Changed slurm-operator chart images tags, omit when equal to the default.
