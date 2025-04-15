@@ -38,6 +38,9 @@ spec:
             - name: SLURM_USER
               value: {{ include "slurm.user" . }}
           command:
+            - tini
+            - -g
+            - --
             - bash
             - -c
             - |
@@ -81,6 +84,9 @@ spec:
             - name: TOKEN_SECRET
               value: {{ include "slurm.cluster.secretName" . }}
           command:
+            - tini
+            - -g
+            - --
             - bash
             - -c
             - |
@@ -109,6 +115,9 @@ spec:
             - name: TOKEN_SECRET
               value: {{ index .Values "slurm-exporter" "exporter" "secretName" }}
           command:
+            - tini
+            - -g
+            - --
             - bash
             - -c
             - |
