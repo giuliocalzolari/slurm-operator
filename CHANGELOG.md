@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Changed slurm-operator chart images tags, omit when equal to the default.
+
 ### Removed
 
 ## v0.2.0
