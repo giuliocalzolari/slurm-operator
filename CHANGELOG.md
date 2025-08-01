@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+### Fixed
+
+### Changed
+
+### Removed
+
+## v0.3.1
+
+### Added
+
 - Added NodeSet level authcred configuration.
 
 ### Fixed
