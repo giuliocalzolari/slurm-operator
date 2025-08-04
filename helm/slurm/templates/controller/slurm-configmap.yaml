@@ -5,7 +5,6 @@ SPDX-License-Identifier: Apache-2.0
 
 {{- $nodesetList := list "ALL" -}}
 {{- $failList := list "slurm.conf" "slurmdbd.conf" -}}
-{{- $allowList := list "acct_gather.conf" "burst_buffer.conf" "cgroup.conf" "gres.conf" "helpers.conf" "job_container.conf" "mpi.conf" "oci.conf" "plugstack.conf" "topology.conf" "topology.yaml" -}}
 {{- $partitionList := list -}}
 apiVersion: v1
 kind: ConfigMap
@@ -120,8 +119,8 @@ data:
     {{- include "expand-map" . | nindent 4 }}
     {{- end }}{{- /* with .Values.slurm.extraSlurmConf */}}
   {{- range $key, $val := .Values.slurm.configFiles -}}
-  {{- if or (has $key $failList) (not (has $key $allowList)) }}
-  {{- fail (printf "configFiles cannot contain `%s`: either is not a valid config file or is reserved for chart use" $key) }}
+  {{- if has $key $failList }}
+  {{- fail (printf "configFiles cannot contain `%s`: reserved for chart use" $key) }}
   {{- end }}{{- /* if or (has $key $failList) (not has $key $allowList) */}}
   {{ $key -}}: |
     {{- $val | nindent 4 }}
