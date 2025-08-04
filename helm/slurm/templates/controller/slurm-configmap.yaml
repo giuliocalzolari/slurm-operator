@@ -56,7 +56,6 @@ data:
     CommunicationParameters=block_null_hash
     LaunchParameters=enable_nss_slurm,use_interactive_step,ulimit_pam_adopt
     ProctrackType=proctrack/cgroup
-    SelectTypeParameters=CR_Core_Memory
     SlurmctldParameters=enable_configless,enable_stepmgr
     TaskPlugin=task/cgroup,task/affinity
     PrologFlags=Contain
@@ -64,7 +63,6 @@ data:
     ### ACCOUNTING ###
     {{- if .Values.accounting.enabled }}
     JobAcctGatherType=jobacct_gather/cgroup
-    JobAcctGatherFrequency=task=30
     AccountingStorageTRES=gres/gpu
     AccountingStorageType=accounting_storage/slurmdbd
     AccountingStorageHost={{- include "slurm.accounting.name" . }}
