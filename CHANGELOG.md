@@ -37,6 +37,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 - Removed allow list check for configFiles.
+- Removed unnecessary `EnableControllers=yes` from default `cgroup.conf`.
 
 ## v0.3.0
 

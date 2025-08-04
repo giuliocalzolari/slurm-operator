@@ -118,7 +118,6 @@ slurm:
     cgroup.conf: |
       CgroupPlugin=autodetect
       IgnoreSystemd=yes
-      EnableControllers=yes
       ConstrainCores=yes
       ConstrainRAMSpace=yes
       ConstrainDevices=yes
