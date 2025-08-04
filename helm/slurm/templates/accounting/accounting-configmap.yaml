@@ -44,9 +44,17 @@ data:
     ### LOGGING ###
     LogFile=/dev/null
     LogTimeFormat=iso8601_ms,format_stderr
+    {{- if .Values.accounting.extraConf }}
+    {{- with .Values.accounting.extraConf }}
+    #
+    ### EXTRA CONFIG ###
+    {{- . | nindent 4 }}
+    {{- end }}{{- /* with .Values.accounting.extraConf */}}
+    {{- else }}{{- /* if .Values.accounting.extraConf */}}
     {{- with .Values.slurm.extraSlurmdbdConf }}
     #
     ### EXTRA CONFIG ###
     {{- include "expand-map" . | nindent 4 }}
     {{- end }}{{- /* with .Values.slurm.extraSlurmdbdConf */}}
+    {{- end }}{{- /* if .Values.accounting.extraConf */}}
 {{- end }}{{- /* if and .Values.accounting.enabled */}}

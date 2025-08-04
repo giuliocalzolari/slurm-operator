@@ -111,11 +111,19 @@ data:
     PartitionName={{- $part.name }} Nodes={{- join "," $part.nodesets }} {{ join " " $partConfig }}
     {{- end }}{{- /* if and $part.enabled $part.nodesets */}}
     {{- end }}{{- /* range $part := .Values.compute.partitions */}}
+    {{- if .Values.controller.extraConf }}
+    {{- with .Values.controller.extraConf }}
+    #
+    ### EXTRA CONFIG ###
+    {{- . | nindent 4 }}
+    {{- end }}{{- /* with .Values.controller.extraConf */}}
+    {{- else }}{{- /* if .Values.controller.extraConf */}}
     {{- with .Values.slurm.extraSlurmConf }}
     #
     ### EXTRA CONFIG ###
     {{- include "expand-map" . | nindent 4 }}
     {{- end }}{{- /* with .Values.slurm.extraSlurmConf */}}
+    {{- end }}{{- /* if .Values.controller.extraConf */}}
   {{- range $key, $val := .Values.slurm.configFiles -}}
   {{- if has $key $failList }}
   {{- fail (printf "configFiles cannot contain `%s`: reserved for chart use" $key) }}

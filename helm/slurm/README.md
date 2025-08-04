@@ -24,6 +24,7 @@ Helm Chart for Slurm HPC Workload Manager
 | accounting.external.port | integer | `3306` |  The database port to use. |
 | accounting.external.secretName | string | `""` |  The existing secret containing the user password to the database. |
 | accounting.external.user | string | `"slurm"` |  The database user to use. |
+| accounting.extraConf | string | `nil` |  Extra slurm configuration lines to append to `slurmdbd.conf`. NOTE: If not empty, this takes priority over `slurm.extraSlurmdbdConf`. WARNING: Values can override existing ones. Ref: https://slurm.schedmd.com/slurm.conf.html |
 | accounting.image.repository | string | `"ghcr.io/slinkyproject/slurmdbd"` |  Set the image repository to use. |
 | accounting.image.tag | string | `"25.05-ubuntu24.04"` |  Set the image tag to use. |
 | accounting.imagePullPolicy | string | `"IfNotPresent"` |  Set the image pull policy. |
@@ -71,6 +72,7 @@ Helm Chart for Slurm HPC Workload Manager
 | compute.partitions[0].enabled | bool | `true` |  Enables the partition in Slurm. |
 | compute.partitions[0].nodesets | list | `["ALL"]` |  NodeSets to put into this Partition by name/key. NOTE: 'ALL' is a Slurm meta value to mean all nodes in the system. |
 | controller.affinity | object | `{}` |  Set affinity for Kubernetes Pod scheduling. Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity |
+| controller.extraConf | string | `nil` |  Extra slurm configuration lines to append to `slurm.conf`. NOTE: If not empty, this takes priority over `slurm.extraSlurmConf`. WARNING: Values can override existing ones. Ref: https://slurm.schedmd.com/slurm.conf.html |
 | controller.image.repository | string | `"ghcr.io/slinkyproject/slurmctld"` |  Set the image repository to use. |
 | controller.image.tag | string | `"25.05-ubuntu24.04"` |  Set the image tag to use. |
 | controller.imagePullPolicy | string | `"IfNotPresent"` |  Set the image pull policy. |
@@ -159,7 +161,7 @@ Helm Chart for Slurm HPC Workload Manager
 | slurm.auth.secretName | string | `""` |  The existing secret containing the slurm.key, otherwise one will be generated. |
 | slurm.configFiles | map[string]string | `{"cgroup.conf":"CgroupPlugin=autodetect\nIgnoreSystemd=yes\nConstrainCores=yes\nConstrainRAMSpace=yes\nConstrainDevices=yes\nConstrainSwapSpace=yes\n"}` |  Optional raw Slurm configuration files, as a map. The map key represents the config file by name; the map value represents config file contents as a string. Ref: https://slurm.schedmd.com/man_index.html#configuration_files |
 | slurm.epilogScripts | map[string]string | `{}` |  The Epilog scripts for compute nodesets, as a map. The map key represents the filename; the map value represents the script contents. WARNING: The script must include a shebang (!) so it can be executed correctly by Slurm. Ref: https://slurm.schedmd.com/slurm.conf.html#OPT_Epilog Ref: https://slurm.schedmd.com/prolog_epilog.html Ref: https://en.wikipedia.org/wiki/Shebang_(Unix) |
-| slurm.extraSlurmConf | map[string]string | map[string][]string | `{}` |  Extra slurm configuration lines to append to `slurm.conf`, represetned as a string or a map. WARNING: Values can override existing ones. Ref: https://slurm.schedmd.com/slurm.conf.html |
+| slurm.extraSlurmConf | map[string]string | map[string][]string | `{}` |  Extra slurm configuration lines to append to `slurm.conf`. WARNING: Values can override existing ones. Ref: https://slurm.schedmd.com/slurm.conf.html |
 | slurm.extraSlurmdbdConf | map[string]string | map[string][]string | `{}` |  Extra slurmdbd configuration lines to append to `slurmdbd.conf`. WARNING: Values can override existing ones. Ref: https://slurm.schedmd.com/slurmdbd.conf.html |
 | slurm.prologScripts | map[string]string | `{}` |  The Prolog scripts for compute nodesets, as a map. The map key represents the filename; the map value represents the script contents. WARNING: The script must include a shebang (!) so it can be executed correctly by Slurm. Ref: https://slurm.schedmd.com/slurm.conf.html#OPT_Prolog Ref: https://slurm.schedmd.com/prolog_epilog.html Ref: https://en.wikipedia.org/wiki/Shebang_(Unix) |
 

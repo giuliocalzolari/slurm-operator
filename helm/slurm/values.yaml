@@ -89,7 +89,7 @@ slurm:
     # PurgeUsageAfter: 12month
   #
   # -- (map[string]string | map[string][]string)
-  # Extra slurm configuration lines to append to `slurm.conf`, represetned as a string or a map.
+  # Extra slurm configuration lines to append to `slurm.conf`.
   # WARNING: Values can override existing ones.
   # Ref: https://slurm.schedmd.com/slurm.conf.html
   extraSlurmConf: {}
@@ -212,6 +212,13 @@ controller:
     # -- (string)
     # Set the image tag to use.
     tag: 25.05-ubuntu24.04
+  #
+  # -- (string)
+  # Extra slurm configuration lines to append to `slurm.conf`.
+  # NOTE: If not empty, this takes priority over `slurm.extraSlurmConf`.
+  # WARNING: Values can override existing ones.
+  # Ref: https://slurm.schedmd.com/slurm.conf.html
+  extraConf: null
   #
   # -- (object)
   # The controller service configuration.
@@ -718,6 +725,13 @@ accounting:
     # -- (string)
     # Set the image tag to use.
     tag: 25.05-ubuntu24.04
+  #
+  # -- (string)
+  # Extra slurm configuration lines to append to `slurmdbd.conf`.
+  # NOTE: If not empty, this takes priority over `slurm.extraSlurmdbdConf`.
+  # WARNING: Values can override existing ones.
+  # Ref: https://slurm.schedmd.com/slurm.conf.html
+  extraConf: null
   #
   # Configuration for an external database (e.g. mariadb, mysql).
   external:

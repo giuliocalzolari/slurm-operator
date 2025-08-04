@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 
 - Added NodeSet level authcred configuration.
 - Added topology.yaml to config files
+- Added {accounting,controller}.extraConf from string.
 
 ### Fixed
 
