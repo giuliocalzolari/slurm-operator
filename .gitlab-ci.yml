@@ -37,7 +37,7 @@ test:
   script:
     - set -euo pipefail
     - apk update && apk upgrade
-    - apk add --no-cache go make bash shellcheck shfmt pre-commit
+    - apk add --no-cache go make bash shellcheck shfmt pre-commit curl
     - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
     - go install github.com/norwoodj/helm-docs/cmd/helm-docs@latest
     - go install golang.org/x/vuln/cmd/govulncheck@latest
