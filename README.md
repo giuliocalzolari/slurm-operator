@@ -48,7 +48,7 @@ It contains a [Kubernetes] operator to deploy and manage certain components of
 [custom resource definitions (CRDs)][crds] designed for the lifecycle (creation,
 upgrade, graceful shutdown) of Slurm clusters.
 
-<img src="./docs/assets/architecture-operator.svg" alt="Slurm Operator Architecture" width="100%" height="auto" />
+<img src="./docs/_static/images/architecture-operator.svg" alt="Slurm Operator Architecture" width="100%" height="auto" />
 
 For additional architectural notes, see the [architecture] docs.
 
@@ -58,7 +58,7 @@ Slurm clusters are very flexible and can be configured in various ways. Our
 Slurm helm chart provides a reference implementation that is highly customizable
 and tries to expose everything Slurm has to offer.
 
-<img src="./docs/assets/architecture-slurm.svg" alt="Slurm Architecture" width="100%" height="auto" />
+<img src="./docs/_static/images/architecture-slurm.svg" alt="Slurm Architecture" width="100%" height="auto" />
 
 For additional information about Slurm, see the [slurm][slurm-docs] docs.
 
@@ -147,7 +147,7 @@ kubectl delete nodesets.slinky.slurm.net
 
 ## Documentation
 
-Project documentation is located in the [docs] directory of this repository.
+Project documentation is located in the docs directory of this repository.
 
 Slinky documentation can be found [here][slinky-docs].
 
@@ -169,7 +169,6 @@ specific language governing permissions and limitations under the License.
 [architecture]: ./docs/architecture.md
 [crds]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#customresourcedefinitions
 [custom-controllers]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-controllers
-[docs]: ./docs/
 [kubernetes]: https://kubernetes.io/
 [quickstart]: ./docs/quickstart.md
 [schedmd]: https://schedmd.com/
