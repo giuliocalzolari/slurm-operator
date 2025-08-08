@@ -135,3 +135,8 @@ vendor/*
 govulnreport.txt
 *.tgz
 values-*.yaml
+<<<<<<< HEAD
+=======
+.helm_ls_cache
+docs/build/html
+>>>>>>> 98e76fd (chore: adds structure for readthedocs site)

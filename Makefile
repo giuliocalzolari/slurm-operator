@@ -178,6 +178,7 @@ KUBECTL ?= kubectl
 KUSTOMIZE ?= $(LOCALBIN)/kustomize
 CONTROLLER_GEN ?= $(LOCALBIN)/controller-gen
 ENVTEST ?= $(LOCALBIN)/setup-envtest
+PANDOC ?= $(LOCALBIN)/pandoc-$(PANDOC_VERSION)
 
 ## Tool Versions
 KUSTOMIZE_VERSION ?= v5.4.3
@@ -185,6 +186,7 @@ CONTROLLER_TOOLS_VERSION ?= v0.16.4
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.30.3
 ENVTEST_VERSION ?= release-0.19
+PANDOC_VERSION ?= 3.7.0.2
 
 .PHONY: kustomize
 kustomize: $(KUSTOMIZE) ## Download kustomize locally if necessary. If wrong version is installed, it will be removed before downloading.
@@ -205,6 +207,22 @@ $(CONTROLLER_GEN): $(LOCALBIN)
 envtest: $(ENVTEST) ## Download envtest-setup locally if necessary.
 $(ENVTEST): $(LOCALBIN)
 	test -s $(LOCALBIN)/setup-envtest || GOBIN=$(LOCALBIN) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@$(ENVTEST_VERSION)
+
+.PHONY: pandoc-bin
+pandoc-bin: $(PANDOC) ## Download pandoc locally if necessary.
+$(PANDOC): $(LOCALBIN)
+	@if ! [ -f "$(PANDOC)" ]; then \
+		if [ "$(shell go env GOOS)" != "darwin" ]; then \
+			curl -sSLo $(PANDOC).tar.gz https://github.com/jgm/pandoc/releases/download/$(PANDOC_VERSION)/pandoc-$(PANDOC_VERSION)-$(shell go env GOOS)-$(shell go env GOARCH).tar.gz ;\
+			tar xv --directory=$(LOCALBIN) --file=$(PANDOC).tar.gz pandoc-$(PANDOC_VERSION)/bin/pandoc --strip-components=2 ;\
+		else \
+			curl -sSLo $(PANDOC).zip https://github.com/jgm/pandoc/releases/download/$(PANDOC_VERSION)/pandoc-$(PANDOC_VERSION)-$(shell go env GOARCH)-macOS.zip ;\
+			unzip -oqqjd $(LOCALBIN) $(PANDOC).zip ;\
+		fi ;\
+		mv $(LOCALBIN)/pandoc $(PANDOC) ;\
+		rm -f $(PANDOC).tar.gz $(PANDOC).zip ;\
+	fi
+
 
 .PHONY: operator-sdk
 OPERATOR_SDK ?= $(LOCALBIN)/operator-sdk
@@ -250,6 +268,26 @@ manifests: controller-gen ## Generate WebhookConfiguration, ClusterRole and Cust
 generate: controller-gen ## Generate code containing DeepCopy, DeepCopyInto, and DeepCopyObject method implementations.
 	$(CONTROLLER_GEN) object:headerFile="hack/boilerplate.go.txt" paths="./..."
 	go generate ./...
+
+.PHONY: generate-docs
+generate-docs: pandoc-bin
+	$(PANDOC) --quiet README.md -o docs/index.rst
+	cat ./docs/_static/toc.rst >> docs/index.rst
+	printf '\n' >> docs/index.rst
+	find docs -type f -name "*.md" -exec basename {} \; | awk '{print "    "$$1}' | env LC_ALL=C sort >> docs/index.rst
+	sed -i -E '/<.\/docs\/[A-Za-z]*.md/s/.\/docs\///g' docs/index.rst
+	sed -i -E '/<[A-Za-z]*.md>`/s/.md>/.html>/g' docs/index.rst
+
+REGISTRY ?= slinky.slurm.net
+DOCS_IMAGE ?= $(REGISTRY)/sphinx
+
+.PHONY: build-docs
+build-docs: ## Build the container image used to develop the docs
+	$(CONTAINER_TOOL) build -t $(DOCS_IMAGE) ./docs
+
+.PHONY: run-docs
+run-docs: build-docs ## Run the container image for docs development
+	$(CONTAINER_TOOL) run --rm --network host -v ./docs:/docs:z $(DOCS_IMAGE) sphinx-autobuild --port 8000 /docs /build/html
 
 .PHONY: fmt
 fmt: ## Run go fmt against code.
