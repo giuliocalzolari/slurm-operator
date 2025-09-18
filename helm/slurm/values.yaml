@@ -206,6 +206,7 @@ controller:
       # externalIPs: []
       # externalName: ""
     # port: 6817
+    # nodePort: 30817
 
 # Slurm REST API (slurmrestd) configuration.
 restapi:
@@ -267,6 +268,7 @@ restapi:
       # externalIPs: []
       # externalName: ""
     # port: 6820
+    # nodePort: 30820
 
 # `slinky/slurm-exporter` subchart configurations.
 # Ref: https://github.com/SlinkyProject/slurm-exporter/blob/main/helm/slurm-exporter/values.yaml
@@ -490,6 +492,7 @@ loginsets:
         # externalIPs: []
         # externalName: ""
       # port: 22
+      # nodePort: 32222
 
 # Slurm NodeSet (slurmd) configurations.
 nodesets:
