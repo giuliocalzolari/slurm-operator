@@ -8,6 +8,17 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Update kubeVersion parsing to handle provider suffixes (e.g., GKE
+  x.y.z-gke.a).
+- Fixes links to installation.md.
+- Fixed conversion of GHFM admonitions to RST.
+- Fixed image rendering in `docs/index.rst`.
+- Fixed odd number of arguments logger error when updating pod conditions.
+- Avoid needless NotFound errors when patching pod conditions.
+- Fixed regression where nodeset `partition.enabled` was not being respected.
+- Fixed issue where changes to slurmd and/or logfile subobjects where not
+  causing a rolling update.
+
 ### Changed
 
 ### Removed
