@@ -18,6 +18,10 @@ All notable changes to this project will be documented in this file.
 - Fixed regression where nodeset `partition.enabled` was not being respected.
 - Fixed issue where changes to slurmd and/or logfile subobjects where not
   causing a rolling update.
+- Fixed parsing of ServiceSpec, but the object is no longer inlined. The object
+  has moved from `service` to `service.spec`.
+- Fixed regression where `service.nodePort` was missing from the migration to
+  CRDs.
 
 ### Changed
 
