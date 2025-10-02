@@ -70,7 +70,7 @@ repos:
           - -s
           - -l
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 3.18.6-1.0.2
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
         args:
@@ -81,14 +81,7 @@ repos:
       - id: go-fmt
       - id: go-mod-tidy
       - id: go-vet-mod
-      - id: go-build-mod
-  - repo: https://github.com/tekwizely/pre-commit-golang
-    rev: v1.0.0-rc.2
-    hooks:
-      - id: go-fmt
-      - id: go-mod-tidy
-      - id: go-vet-mod
-      - id: go-build-mod      
+      - id: go-build-mod    
   - repo: local
     hooks:
       # https://github.com/norwoodj/helm-docs/blob/master/.pre-commit-hooks.yaml
