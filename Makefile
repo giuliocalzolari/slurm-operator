@@ -226,6 +226,12 @@ install-dev: ## Install binaries for development environment.
 .PHONY: helm-validate
 helm-validate: helm-dependency-update helm-lint ## Validate Helm charts.
 
+.PHONY: helm-unittest
+helm-unittest: ## Run helm-unittest.
+	@command -v helm unittest >/dev/null 2>&1 || helm plugin install https://github.com/helm-unittest/helm-unittest
+	@echo "Running helm unittest for slurm-operator chart"
+	@helm unittest helm/slurm-operator
+
 .PHONY: helm-docs
 helm-docs: helm-docs-bin ## Run helm-docs.
 	$(HELM_DOCS) --chart-search-root=helm
