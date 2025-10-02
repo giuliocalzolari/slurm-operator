@@ -100,8 +100,8 @@ repos:
         language: system
         pass_filenames: false
       - id: make-helm-unittest
-        name: Make Helm Validate
-        entry: make helm-validate
+        name: Make Helm Unittest
+        entry: make helm-unittest
         types: [yaml]
         files: ^helm/
         language: system
