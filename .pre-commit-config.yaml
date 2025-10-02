@@ -70,7 +70,7 @@ repos:
           - -s
           - -l
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.11.0.1
+    rev: 3.18.6-1.0.2
     hooks:
       - id: shellcheck
         args:
@@ -82,6 +82,13 @@ repos:
       - id: go-mod-tidy
       - id: go-vet-mod
       - id: go-build-mod
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.2
+    hooks:
+      - id: go-fmt
+      - id: go-mod-tidy
+      - id: go-vet-mod
+      - id: go-build-mod      
   - repo: local
     hooks:
       # https://github.com/norwoodj/helm-docs/blob/master/.pre-commit-hooks.yaml
@@ -99,6 +106,13 @@ repos:
         files: ^helm/
         language: system
         pass_filenames: false
+      - id: make-helm-unittest
+        name: Make Helm Validate
+        entry: make helm-validate
+        types: [yaml]
+        files: ^helm/
+        language: system
+        pass_filenames: false        
       # https://github.com/golangci/golangci-lint/blob/main/.pre-commit-hooks.yaml
       - id: make-golangci-lint
         name: make-golangci-lint
