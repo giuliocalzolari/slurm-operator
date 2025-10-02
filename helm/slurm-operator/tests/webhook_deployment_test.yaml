@@ -38,9 +38,9 @@ tests:
   set:
     webhook:
       tolerations:
-      - key: "test"
-        operator: "Exists"
-        effect: "NoExecute"
+      - key: test
+        operator: Exists
+        effect: NoExecute
         tolerationSeconds: 6000
   asserts:
   - equal:
@@ -51,7 +51,7 @@ tests:
 - it: should set imagePullSecrets
   set:
     imagePullSecrets:
-    - name: "test-docker-secret"
+    - name: test-docker-secret
   asserts:
   - equal:
       path: spec.template.spec.imagePullSecrets[0].name
@@ -59,7 +59,7 @@ tests:
 
 - it: should set priorityClassName
   set:
-    priorityClassName: "test-priority-class"
+    priorityClassName: test-priority-class
   asserts:
   - equal:
       path: spec.template.spec.priorityClassName
@@ -77,7 +77,7 @@ tests:
 
 - it: should set namespace
   set:
-    namespaceOverride: "custom-namespace"
+    namespaceOverride: custom-namespace
   asserts:
   - equal:
       path: metadata.namespace
@@ -85,7 +85,7 @@ tests:
 
 - it: should set name
   set:
-    nameOverride: "custom-name"
+    nameOverride: custom-name
   asserts:
   - equal:
       path: metadata.name
@@ -96,7 +96,7 @@ tests:
   set:
     webhook:
       serviceAccount:
-        name: "custom-service-account"
+        name: custom-service-account
   asserts:
   - equal:
       path: spec.template.spec.serviceAccountName

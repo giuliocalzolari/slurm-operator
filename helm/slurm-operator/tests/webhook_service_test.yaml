@@ -25,7 +25,7 @@ tests:
 
 - it: should set namespace
   set:
-    namespaceOverride: "custom-namespace"
+    namespaceOverride: custom-namespace
   asserts:
   - equal:
       path: metadata.namespace
@@ -34,7 +34,7 @@ tests:
 
 - it: should set name
   set:
-    nameOverride: "custom-name"
+    nameOverride: custom-name
   asserts:
   - equal:
       path: metadata.name

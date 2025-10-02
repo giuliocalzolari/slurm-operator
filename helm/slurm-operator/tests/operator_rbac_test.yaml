@@ -31,3 +31,26 @@ tests:
   asserts:
   - hasDocuments:
       count: 0
+
+
+
+- it: should set namespace
+  documentSelector:
+    path: kind
+    value: ServiceAccount
+  set:
+    namespaceOverride: custom-namespace
+  asserts:
+  - equal:
+      path: metadata.namespace
+      value: custom-namespace
+
+- it: should set serviceAccount name
+  set:
+    operator:
+      serviceAccount:
+        name: custom-service-account
+  asserts:
+  - equal:
+      path: metadata.name
+      value: custom-service-account
