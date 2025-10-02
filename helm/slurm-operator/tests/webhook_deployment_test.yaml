@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
 ---
-suite: test operator deployment
+suite: test webhook deployment
 templates:
-- operator/deployment.yaml
+- webhook/deployment.yaml
 chart:
   version: 1.2.3
   appVersion: 1.2.3
@@ -18,7 +18,7 @@ tests:
 
 - it: should add affinity
   set:
-    operator:
+    webhook:
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -36,7 +36,7 @@ tests:
 
 - it: should add tolerations
   set:
-    operator:
+    webhook:
       tolerations:
       - key: "test"
         operator: "Exists"
@@ -68,7 +68,7 @@ tests:
 
 - it: should set replica count
   set:
-    operator:
+    webhook:
       replicas: 42
   asserts:
   - equal:
@@ -89,12 +89,12 @@ tests:
   asserts:
   - equal:
       path: metadata.name
-      value: custom-name
+      value: custom-name-webhook
 
 
 - it: should set serviceAccount
   set:
-    operator:
+    webhook:
       serviceAccount:
         name: "custom-service-account"
   asserts:
